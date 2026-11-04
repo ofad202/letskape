@@ -1,0 +1,130 @@
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #faf9f6; border-left: 2px solid #1a110b; }
+::-webkit-scrollbar-thumb { background: #1a110b; }
+::-webkit-scrollbar-thumb:hover { background: #C88A5A; }
+
+:root {
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+button, a, input, select, textarea, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+input, select, textarea { font-size: 16px; }
+@media (min-width: 768px) {
+    input, select, textarea { font-size: inherit; }
+}
+
+.brut-border { border: 2px solid #1a110b; }
+.brut-shadow { box-shadow: 5px 5px 0 #1a110b; }
+.brut-shadow-sm { box-shadow: 4px 4px 0 #1a110b; }
+.brut-shadow-hover { transition: box-shadow 0.15s steps(2), transform 0.15s steps(2); }
+@media (hover: hover) {
+    .brut-shadow-hover:hover { box-shadow: 1px 1px 0 #1a110b; transform: translate(3px, 3px); }
+}
+
+.font-display {
+    font-family: 'Merriweather', serif;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.94;
+}
+
+.hero-display {
+    font-family: 'Merriweather', serif;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 0.88;
+    font-size: clamp(2.75rem, 11vw, 9rem);
+}
+
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 45s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+}
+
+.drawer { transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease; }
+.drawer-hidden { transform: translateX(100%); opacity: 0; pointer-events: none; }
+
+.modal-backdrop { transition: opacity 0.25s ease; }
+.modal-backdrop.hidden-modal { opacity: 0; pointer-events: none; }
+.modal-backdrop.hidden-modal > div { transform: scale(0.96) translateY(8px); }
+.modal-backdrop > div { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); transform: scale(1) translateY(0); }
+
+body.no-scroll { overflow: hidden; }
+#cart-items { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+
+.menu-scroll {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.5rem;
+}
+.menu-scroll::-webkit-scrollbar { display: none; }
+.menu-scroll > * { scroll-snap-align: start; flex-shrink: 0; }
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+@keyframes cartPop { 0%{transform:scale(1)} 50%{transform:scale(1.35)} 100%{transform:scale(1)} }
+.cart-pulse { animation: cartPop 0.35s cubic-bezier(0.16,1,0.3,1); }
+
+.sticker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    border: 2px solid #1a110b;
+    background: #faf9f6;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    box-shadow: 3px 3px 0 #1a110b;
+}
+
+.menu-card { transition: transform 0.15s steps(2), box-shadow 0.15s steps(2); }
+.menu-card-img { transition: transform 0.3s steps(3); }
+@media (hover: hover) {
+    .menu-card:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 #1a110b; }
+    .menu-card:hover .menu-card-img { transform: scale(1.04); }
+}
+
+.mark-accent {
+    background-image: linear-gradient(transparent 60%, rgba(200,138,90,0.5) 60%);
+    background-size: 100% 100%;
+}
+
+.header-brut { border-bottom: 2px solid #C88A5A; }
+
+*:focus-visible {
+    outline: 3px solid #C88A5A;
+    outline-offset: 2px;
+}

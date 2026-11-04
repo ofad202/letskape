@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth motion-reduce:scroll-auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Let's KAPE | Lokal na Kapihan</title>
+    <meta name="description" content="Let's KAPE — a cozy Filipino coffee shop in Navotas. Order locally sourced coffee and kakanin online for pickup. Pay via GCash, Maya, or cash on pickup.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;0,900;1,400;1,900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: {
+                            900: '#1a110b', 800: '#2c1e16', 700: '#3E2723',
+                            600: '#5D4037', 500: '#6D4C41', 400: '#8d6e63',
+                            300: '#bcaaa4', 200: '#d7ccc8', 100: '#f5f5f0', 50:  '#faf9f6',
+                        },
+                        accent: '#C88A5A'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                        mono: ['"Space Mono"', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans bg-coffee-50 text-coffee-900 antialiased selection:bg-coffee-900 selection:text-accent">
+
+    <a href="#home" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-coffee-900 focus:text-coffee-50 focus:px-4 focus:py-2 brut-border">Skip to content</a>
+
+    <!-- TOAST -->
+    <div id="message-box" role="status" aria-live="polite"
+         class="fixed top-24 left-1/2 -translate-x-1/2 z-[110] bg-coffee-50 brut-border brut-shadow px-5 py-4 flex items-center gap-3 opacity-0 -translate-y-4 pointer-events-none transition-all duration-300 max-w-sm w-[calc(100%-2rem)]">
+        <svg class="w-6 h-6 flex-shrink-0 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+        <span id="message-box-text" class="text-sm font-bold text-coffee-900 font-mono uppercase tracking-wide"></span>
+    </div>
+
+    <!-- HEADER -->
+    <header id="site-header" class="fixed w-full top-0 z-50 bg-coffee-50 text-coffee-900 transition-all duration-300 header-brut">
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="header-inner" class="flex justify-between items-center h-20 transition-all duration-300">
+                <a href="#home" class="flex-shrink-0 flex items-center gap-3 group">
+                    <div class="w-11 h-11 brut-border bg-accent flex items-center justify-center group-hover:bg-coffee-900 transition-colors duration-150">
+                        <svg class="w-6 h-6 text-coffee-900 group-hover:text-accent transition-colors" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h13v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 9h1.5a2.5 2.5 0 0 1 0 5H17"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 3v2M11 3v2M15 3v2"/>
+                        </svg>
+                    </div>
+                    <div class="leading-none">
+                        <span class="font-display text-xl sm:text-2xl block">Let's</span>
+                        <span class="font-display text-xl sm:text-2xl italic block text-accent" style="margin-top:-4px">KAPE.</span>
+                    </div>
+                </a>
+
+                <nav class="hidden md:flex items-center space-x-1" aria-label="Primary">
+                    <a href="#home"    class="px-4 py-2 font-mono text-xs uppercase tracking-widest font-bold border-2 border-transparent hover:border-coffee-900 transition-colors">Home</a>
+                    <a href="#about"   class="px-4 py-2 font-mono text-xs uppercase tracking-widest font-bold border-2 border-transparent hover:border-coffee-900 transition-colors">About</a>
+                    <a href="#menu"    class="px-4 py-2 font-mono text-xs uppercase tracking-widest font-bold border-2 border-transparent hover:border-coffee-900 transition-colors">Menu</a>
+                    <a href="#contact" class="px-4 py-2 font-mono text-xs uppercase tracking-widest font-bold border-2 border-transparent hover:border-coffee-900 transition-colors">Contact</a>
+                </nav>
+
+                <div class="flex items-center gap-3">
+                    <button id="cart-btn" type="button" class="relative p-2.5 brut-border bg-coffee-50 hover:bg-coffee-900 hover:text-coffee-50 transition-colors" aria-label="Open cart">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m12-9l2 9M9 21a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z"/>
+                        </svg>
+                        <span id="cart-badge" class="absolute -top-2 -right-2 bg-accent text-coffee-900 text-[10px] font-mono font-bold brut-border min-w-[22px] h-[22px] px-1 flex items-center justify-center hidden">0</span>
+                    </button>
+
+                    <a href="#menu" class="hidden md:inline-flex bg-coffee-900 hover:bg-accent text-coffee-50 hover:text-coffee-900 font-mono text-xs uppercase tracking-widest font-bold py-3 px-6 brut-border brut-shadow-sm brut-shadow-hover items-center gap-2">
+                        Order Now
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+
+                    <button id="mobile-menu-btn" type="button" class="md:hidden brut-border p-2 hover:bg-coffee-900 hover:text-coffee-50 transition-colors" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle navigation menu">
+                        <svg id="icon-open" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                        <svg id="icon-close" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-coffee-50 border-t-2 border-coffee-900">
+            <nav class="px-4 pt-2 pb-4 space-y-1" aria-label="Mobile">
+                <a href="#home"    class="block px-4 py-3 font-mono text-sm uppercase tracking-widest font-bold border-2 border-transparent hover:border-coffee-900">Home</a>
+                <a href="#about"   class="block px-4 py-3 font-mono text-sm uppercase tracking-widest font-bold border-2 border-transparent hover:border-coffee-900">About Us</a>
+                <a href="#menu"    class="block px-4 py-3 font-mono text-sm uppercase tracking-widest font-bold border-2 border-transparent hover:border-coffee-900">Menu</a>
+                <a href="#contact" class="block px-4 py-3 font-mono text-sm uppercase tracking-widest font-bold border-2 border-transparent hover:border-coffee-900">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- TICKER -->
+    <div class="fixed top-20 left-0 right-0 z-40 bg-coffee-900 text-coffee-50 border-y-2 border-coffee-900 overflow-hidden h-9 flex items-center">
+        <div class="marquee-track">
+            <span class="font-mono text-xs uppercase tracking-[0.3em] font-bold px-4 whitespace-nowrap">Kapeng Barako ★ Sagada Arabica ★ Ube Latte ★ Bibingka ★ Ensaymada ★ Proudly Pinoy ★</span>
+            <span class="font-mono text-xs uppercase tracking-[0.3em] font-bold px-4 whitespace-nowrap" aria-hidden="true">Kapeng Barako ★ Sagada Arabica ★ Ube Latte ★ Bibingka ★ Ensaymada ★ Proudly Pinoy ★</span>
+        </div>
+    </div>
+
+    <main class="pt-[116px]">
+
+        <!-- HERO -->
+        <section id="home" class="relative bg-coffee-50 overflow-hidden border-b-2 border-coffee-900">
+            <div class="max-w-[1600px] mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[calc(100svh-116px)]">
+
+                    <!-- Left: giant type -->
+                    <div class="lg:col-span-7 relative border-b-2 lg:border-b-0 lg:border-r-2 border-coffee-900 p-6 sm:p-10 lg:p-14 flex flex-col justify-between">
+
+                        <div class="flex items-start justify-between gap-4 mb-8">
+                            <span class="sticker bg-accent text-coffee-900 rotate-[-2deg]">100% Lokal</span>
+                        </div>
+
+                        <div>
+                            <h1 class="hero-display text-coffee-900 mb-2">
+                                LET'S<br>
+                                <span class="italic text-accent">KAPE</span>
+                            </h1>
+                            <div class="flex items-center gap-3 mt-6 mb-8">
+                                <div class="h-1 w-16 bg-coffee-900"></div>
+                                <p class="font-mono text-xs uppercase tracking-[0.3em] font-bold text-coffee-700">Timplang Pinoy · Pusong Lokal</p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-3 max-w-md">
+                            <a href="#menu" class="flex-1 bg-coffee-900 hover:bg-accent text-coffee-50 hover:text-coffee-900 font-mono text-xs uppercase tracking-widest font-bold py-4 px-6 brut-border brut-shadow-sm brut-shadow-hover text-center">
+                                Order for Pickup →
+                            </a>
+                            <a href="#contact" class="flex-1 bg-coffee-50 hover:bg-coffee-900 hover:text-coffee-50 text-coffee-900 font-mono text-xs uppercase tracking-widest font-bold py-4 px-6 brut-border brut-shadow-sm brut-shadow-hover text-center">
+                                Bisitahin Kami
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right: image + info -->
+                    <div class="lg:col-span-5 relative bg-coffee-100 flex flex-col">
+
+                        <div class="relative flex-1 overflow-hidden border-b-2 border-coffee-900 min-h-[320px]">
+                            <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=1000"
+                                 alt="Warm interior of a Filipino coffee shop"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/800x800/e7ded6/5D4037?text=Let%27s+KAPE';"
+                                 class="w-full h-full object-cover absolute inset-0" />
+                        </div>
+
+                        <div class="p-6 sm:p-8 grid grid-cols-2 divide-x-2 divide-coffee-900">
+                            <div class="pr-4">
+                                <p class="font-display text-3xl leading-none">100%</p>
+                                <p class="font-mono text-[9px] uppercase tracking-widest font-bold text-coffee-600 mt-2">Lokal na Ani</p>
+                            </div>
+                            <div class="pl-4">
+                                <p class="font-display text-3xl leading-none">7AM–11PM</p>
+                                <p class="font-mono text-[9px] uppercase tracking-widest font-bold text-coffee-600 mt-2">Open Daily</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" class="relative bg-coffee-50 border-b-2 border-coffee-900">
+            <div class="max-w-[1600px] mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12">
+
+                    <!-- Copy -->
+                    <div class="lg:col-span-5 border-b-2 lg:border-b-0 lg:border-r-2 border-coffee-900 p-6 sm:p-10 lg:p-14 flex flex-col justify-center">
+                        <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl text-coffee-900 mb-6">
+                            Philippine <span class="italic text-accent">Coffee</span> Heritage.
+                        </h2>
+                        <p class="text-base text-coffee-700 mb-5 leading-relaxed">
+                            Founded in Navotas, Let's KAPE started with a simple mission: to spotlight the incredible coffee grown right here in the Philippines. Every cup tells a story of our hardworking local farmers.
+                        </p>
+                        <p class="text-base text-coffee-700 leading-relaxed">
+                            From the bold Kapeng Barako of Batangas to the smooth Arabica of Sagada — ethically sourced, roasted in-house, and paired with fresh kakanin. Perfect for good conversations.
+                        </p>
+                    </div>
+
+                    <!-- Collage -->
+                    <div class="lg:col-span-7 p-6 sm:p-10 lg:p-12 bg-coffee-100">
+                        <div class="grid grid-cols-6 grid-rows-6 gap-3 h-full min-h-[420px]">
+
+                            <div class="col-span-4 row-span-4 brut-border bg-white overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=1000"
+                                     alt="Barista pouring latte art"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x600/e7ded6/5D4037?text=Barista';"
+                                     class="w-full h-full object-cover" />
+                            </div>
+
+                            <div class="col-span-2 row-span-3 brut-border bg-accent p-4 flex flex-col justify-between">
+                                <svg class="w-7 h-7 text-coffee-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                                <p class="font-display italic text-coffee-900 text-base sm:text-lg leading-tight">"Kape, kwento, kasiyahan."</p>
+                            </div>
+
+                            <div class="col-span-2 row-span-3 brut-border overflow-hidden bg-white">
+                                <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&q=80&w=600"
+                                     alt="Coffee beans"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/400x400/e7ded6/5D4037?text=Beans';"
+                                     class="w-full h-full object-cover" />
+                            </div>
+
+                            <div class="col-span-6 row-span-2 brut-border bg-coffee-900 text-coffee-50 p-5 flex items-center justify-between">
+                                <div>
+                                    <p class="font-mono text-[10px] uppercase tracking-widest font-bold text-accent mb-1">Direct Trade</p>
+                                    <p class="font-display text-2xl sm:text-3xl">Farmers First.</p>
+                                </div>
+                                <svg class="w-10 h-10 text-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MENU -->
+        <section id="menu" class="relative bg-coffee-50 border-b-2 border-coffee-900">
+            <div class="max-w-[1600px] mx-auto">
+
+                <!-- Menu header -->
+                <div class="border-b-2 border-coffee-900 p-6 sm:p-10 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
+                    <div class="lg:col-span-7">
+                        <h2 class="font-display text-5xl sm:text-7xl lg:text-8xl text-coffee-900">
+                            AMING<br><span class="italic text-accent">Menu.</span>
+                        </h2>
+                    </div>
+                    <div class="lg:col-span-5 lg:text-right">
+                        <p class="font-mono text-xs uppercase tracking-[0.25em] font-bold text-coffee-700 mb-2">Timplang gawa sa puso</p>
+                        <p class="text-base text-coffee-600 max-w-md lg:ml-auto">Proudly Filipino. Order for pickup. Swipe to browse on mobile.</p>
+                    </div>
+                </div>
+
+                <!-- Coffee -->
+                <div class="border-b-2 border-coffee-900">
+                    <div class="flex items-center justify-between p-4 sm:px-10 sm:py-5 border-b-2 border-coffee-900 bg-coffee-100">
+                        <h3 class="font-display text-xl sm:text-2xl">Kape <span class="italic text-coffee-500 font-normal text-base sm:text-lg">/ Coffee</span></h3>
+                    </div>
+
+                    <div class="hidden lg:block p-6 lg:p-10">
+                        <div class="grid grid-cols-2 xl:grid-cols-4 gap-5" id="coffee-grid-desktop"></div>
+                    </div>
+                    <div class="lg:hidden menu-scroll p-4" id="coffee-grid-mobile"></div>
+                </div>
+
+                <!-- Pastry -->
+                <div>
+                    <div class="flex items-center justify-between p-4 sm:px-10 sm:py-5 border-b-2 border-coffee-900 bg-coffee-100">
+                        <h3 class="font-display text-xl sm:text-2xl">Kakanin at Tinapay <span class="italic text-coffee-500 font-normal text-base sm:text-lg">/ Pastries</span></h3>
+                    </div>
+
+                    <div class="hidden lg:block p-6 lg:p-10">
+                        <div class="grid grid-cols-2 xl:grid-cols-4 gap-5" id="pastry-grid-desktop"></div>
+                    </div>
+                    <div class="lg:hidden menu-scroll p-4" id="pastry-grid-mobile"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="relative bg-coffee-900 text-coffee-50">
+            <div class="max-w-[1600px] mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12">
+
+                    <!-- Left info -->
+                    <div class="lg:col-span-6 border-b-2 lg:border-b-0 lg:border-r-2 border-coffee-50 p-6 sm:p-10 lg:p-14">
+                        <h2 class="font-display text-5xl sm:text-6xl lg:text-7xl text-coffee-50 mb-8">
+                            USAP<br><span class="italic text-accent">Tayo.</span>
+                        </h2>
+                        <p class="text-base text-coffee-200 mb-10 max-w-lg">Got questions about our beans, want to reserve a table, or just want to say hi? We'd love to hear from you.</p>
+
+                        <div class="space-y-0 border-t-2 border-coffee-700">
+                            <div class="border-b-2 border-coffee-700 py-6 flex items-start gap-4">
+                                <div class="w-10 h-10 brut-border border-coffee-50 flex items-center justify-center flex-shrink-0 bg-accent">
+                                    <svg class="w-5 h-5 text-coffee-900" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-mono text-[10px] uppercase tracking-widest font-bold text-accent mb-1">Bisitahin Kami</p>
+                                    <a href="https://maps.app.goo.gl/tdRErnPiFTNcHJME9" target="_blank" rel="noopener noreferrer" class="font-display text-lg text-coffee-50 hover:text-accent transition-colors underline decoration-accent decoration-2 underline-offset-4">Brgy. David Compound<br>Gov. A. Pascual St, Navotas</a>
+                                </div>
+                            </div>
+                            <div class="border-b-2 border-coffee-700 py-6 flex items-start gap-4">
+                                <div class="w-10 h-10 brut-border border-coffee-50 flex items-center justify-center flex-shrink-0 bg-accent">
+                                    <svg class="w-5 h-5 text-coffee-900" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-mono text-[10px] uppercase tracking-widest font-bold text-accent mb-1">Bukas Kami</p>
+                                    <p class="font-display text-lg text-coffee-50">Mon–Fri: 7AM – 10PM<br>Sat–Sun: 8AM – 11PM</p>
+                                </div>
+                            </div>
+                            <div class="py-6 flex items-start gap-4">
+                                <div class="w-10 h-10 brut-border border-coffee-50 flex items-center justify-center flex-shrink-0 bg-accent">
+                                    <svg class="w-5 h-5 text-coffee-900" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-mono text-[10px] uppercase tracking-widest font-bold text-accent mb-1">Makipag-ugnayan</p>
+                                    <a href="mailto:hello@letskape.ph" class="font-display text-lg text-coffee-50 hover:text-accent transition-colors block underline decoration-accent decoration-2 underline-offset-4">hello@letskape.ph</a>
+                                    <a href="tel:+639123456789" class="font-display text-lg text-coffee-50 hover:text-accent transition-colors block underline decoration-accent decoration-2 underline-offset-4">0912 345 6789</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-10 brut-border border-coffee-50 overflow-hidden">
+                            <!-- Using the business name forces Google to center exactly on the pin -->
+                            <iframe title="Map showing Let's KAPE" width="100%" height="240" style="border:0" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Let's+KAPE,+Navotas&t=m&z=18&output=embed&iwloc=near"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Right form -->
+                    <div class="lg:col-span-6 bg-coffee-50 text-coffee-900 p-6 sm:p-10 lg:p-14">
+                        <form id="contact-form" class="space-y-6" novalidate>
+                            <div>
+                                <label for="name" class="block font-mono text-[10px] uppercase tracking-widest font-bold text-coffee-700 mb-2">Pangalan *</label>
+                                <input type="text" id="name" name="name" class="w-full bg-coffee-50 border-0 border-b-2 border-coffee-900 px-0 py-3 text-coffee-900 placeholder-coffee-400 focus:outline-none focus:border-accent transition-colors font-display text-lg" placeholder="Juan dela Cruz" required>
+                                <p class="error-msg hidden mt-1 text-xs text-red-600 font-mono" data-for="name">Please enter your name.</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="email" class="block font-mono text-[10px] uppercase tracking-widest font-bold text-coffee-700 mb-2">Email *</label>
+                                    <input type="email" id="email" name="email" class="w-full bg-coffee-50 border-0 border-b-2 border-coffee-900 px-0 py-3 text-coffee-900 placeholder-coffee-400 focus:outline-none focus:border-accent transition-colors font-display text-lg" placeholder="juan@example.ph" required>
+                                    <p class="error-msg hidden mt-1 text-xs text-red-600 font-mono" data-for="email">Please enter a valid email.</p>
+                                </div>
+                                <div>
+                                    <label for="phone" class="block font-mono text-[10px] uppercase tracking-widest font-bold text-coffee-700 mb-2">Phone <span class="text-coffee-400 normal-case">(optional)</span></label>
+                                    <input type="tel" id="phone" name="phone" class="w-full bg-coffee-50 border-0 border-b-2 border-coffee-900 px-0 py-3 text-coffee-900 placeholder-coffee-400 focus:outline-none focus:border-accent transition-colors font-display text-lg" placeholder="0917 123 4567">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="inquiry" class="block font-mono text-[10px] uppercase tracking-widest font-bold text-coffee-700 mb-2">Inquiry Type</label>
+                                <select id="inquiry" name="inquiry" required class="w-full bg-coffee-50 border-0 border-b-2 border-coffee-900 px-0 py-3 text-coffee-900 focus:outline-none focus:border-accent transition-colors font-display text-lg">
+                                    <option value="General Inquiry">General Inquiry</option>
+                                    <option value="Table Reservation">Table Reservation</option>
+                                    <option value="Bulk/Catering Order">Bulk / Catering Order</option>
+                                    <option value="Feedback">Feedback</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="message" class="block font-mono text-[10px] uppercase tracking-widest font-bold text-coffee-700 mb-2">Mensahe *</label>
+                                <textarea id="message" name="message" rows="4" class="w-full bg-coffee-50 border-0 border-b-2 border-coffee-900 px-0 py-3 text-coffee-900 placeholder-coffee-400 focus:outline-none focus:border-accent transition-colors font-display text-lg resize-none" placeholder="Paano kami makakatulong?" required></textarea>
+                                <p class="error-msg hidden mt-1 text-xs text-red-600 font-mono" data-for="message">Please write a short message.</p>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="w-full bg-coffee-900 hover:bg-accent text-coffee-50 hover:text-coffee-900 font-mono text-xs uppercase tracking-widest font-bold py-4 px-8 brut-border brut-shadow-sm brut-shadow-hover flex items-center justify-center gap-2 group">
+                                <span id="submit-label">Ipadala →</span>
+                                <svg id="submit-spinner" class="hidden w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                                </svg>
+                                <svg id="submit-arrow" class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            </button>
+
+                            <p class="text-[10px] text-coffee-500 font-mono uppercase tracking-widest text-center pt-2">
+                                Reply within 2–3 hrs · Info safe with us
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-coffee-900 border-t-2 border-coffee-50">
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 brut-border border-coffee-50 bg-accent flex items-center justify-center">
+                        <svg class="w-6 h-6 text-coffee-900" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h13v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 9h1.5a2.5 2.5 0 0 1 0 5H17"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 3v2M11 3v2M15 3v2"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-display text-xl text-coffee-50 leading-none">Let's KAPE.</p>
+                        <p class="font-mono text-[10px] uppercase tracking-widest text-accent mt-1">Lokal na Kapihan · Navotas</p>
+                    </div>
+                </div>
+
+                <p class="font-mono text-[10px] uppercase tracking-widest text-coffee-400">
+                    © 2026 Let's KAPE · Proudly Pinoy ·
+                    <button id="status-link" type="button" class="underline decoration-accent decoration-2 underline-offset-2 hover:text-accent transition-colors">Check order status</button>
+                </p>
+
+                <div class="flex gap-2">
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/letskape" target="_blank" rel="noopener noreferrer" class="w-10 h-10 brut-border border-coffee-50 hover:bg-accent hover:border-accent flex items-center justify-center text-coffee-50 hover:text-coffee-900 transition-colors" aria-label="Instagram">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" /></svg>
+                    </a>
+                    
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/p/Lets-KAPE-100085535260184/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 brut-border border-coffee-50 hover:bg-accent hover:border-accent flex items-center justify-center text-coffee-50 hover:text-coffee-900 transition-colors" aria-label="Facebook">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART DRAWER -->
+    <div id="cart-backdrop" class="fixed inset-0 bg-coffee-900/50 z-[80] opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <aside id="cart-drawer" class="drawer drawer-hidden fixed top-0 right-0 h-full w-full max-w-md bg-coffee-50 z-[92] flex flex-col border-l-2 border-coffee-900" role="dialog" aria-modal="true" aria-labelledby="cart-title" style="padding-bottom: var(--safe-bottom);">
+        <div class="flex items-center justify-between p-5 border-b-2 border-coffee-900 bg-accent">
+            <h2 id="cart-title" class="font-display text-2xl text-coffee-900">Your Cart.</h2>
+            <button id="cart-close" type="button" aria-label="Close cart" class="p-2 brut-border bg-coffee-50 hover:bg-coffee-900 hover:text-coffee-50 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-5 space-y-3"></div>
+        <div class="border-t-2 border-coffee-900 p-5 bg-coffee-50">
+            <div class="flex justify-between font-display text-2xl text-coffee-900 mb-5 pb-4 border-b-2 border-coffee-900">
+                <span>Subtotal</span>
+                <span id="cart-subtotal">₱0</span>
+            </div>
+            <button id="checkout-btn" type="button" class="w-full bg-coffee-900 hover:bg-accent disabled:bg-coffee-200 disabled:cursor-not-allowed disabled:text-coffee-400 text-coffee-50 font-mono text-xs uppercase tracking-widest font-bold py-4 px-8 brut-border brut-shadow-sm brut-shadow-hover">
+                Proceed to Checkout →
+            </button>
+            <p class="font-mono text-[9px] text-coffee-500 text-center mt-3 uppercase tracking-widest font-bold">For pickup only · Payment verified before prep</p>
+        </div>
+    </aside>
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkout-modal" class="modal-backdrop hidden-modal fixed inset-0 z-[100] bg-coffee-900/60 flex items-center justify-center p-4">
+        <div class="bg-coffee-50 brut-border w-full max-w-lg max-h-[90vh] overflow-y-auto" style="box-shadow: 8px 8px 0 #1a110b;">
+            <div class="bg-coffee-900 text-coffee-50 p-5 flex items-center justify-between sticky top-0 z-10 border-b-2 border-coffee-50">
+                <h2 class="font-display text-2xl">Checkout.</h2>
+                <button id="checkout-close" type="button" aria-label="Close checkout" class="p-2 brut-border border-coffee-50 hover:bg-accent hover:text-coffee-900 hover:border-accent transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <form id="order-form" class="p-5 md:p-7 space-y-5">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="col-span-2">
+                        <label for="order-name" class="block font-mono text-[10px] uppercase tracking-widest font-bold text-coffee-700 mb-1">Pangalan *</label>
+                        <input type="text" id="order-name" required class="w-full bg-coffee-50 border-0 border-b-2 border-coffee-900 px-0 py-2 focus:border-accent transition-colors font-display text-base" placeholder="Juan dela Cruz">
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                        <label for="order-phone" class="block font-mono text-[10px] uppercase tracking-widest font-bold text-coffee-700 mb-1">Phone *</label>
+                        <input type="tel" id="order-phone" required class="w-full bg-coffee-50 border-0 border-b-2 border-coffee-900 px-0 py-2 focus:border-accent transition-colors font-display text-base" placeholder="0917 123 4567">
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                        <label for="order-email" class="block font-mono text-[10px] uppercase tracking-widest font-bold text-coffee-700 mb-1">Email (optional)</label>
+                        <input type="email" id="order-email" class="w-full bg-coffee-50 border-0 border-b-2 border-coffee-900 px-0 py-2 focus:border-accent transition-colors font-display text-base" placeholder="juan@example.ph">
+                    </div>
+
+                    <div>
+                        <label for="order-time" class="block font-mono text-[10px] uppercase tracking-widest font-bold text-coffee-700 mb-1">Pickup Time *</label>
+                        <select id="order-time" required class="w-full bg-coffee-50 border-0 border-b-2 border-coffee-900 px-0 py-2 focus:border-accent transition-colors font-display text-base">
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="order-payment" class="block font-mono text-[10px] uppercase tracking-widest font-bold text-coffee-700 mb-1">Payment *</label>
+                        <select id="order-payment" required class="w-full bg-coffee-50 border-0 border-b-2 border-coffee-900 px-0 py-2 focus:border-accent transition-colors font-display text-base">
+                            <option value="GCash">GCash</option>
+                            <option value="Maya">Maya</option>
+                            <option value="Cash on Pickup">Cash on Pickup</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="payment-instructions" class="bg-coffee-100 brut-border p-4 text-sm text-coffee-800">
+                    <p class="font-mono text-[10px] uppercase tracking-widest font-bold text-coffee-900 mb-2">→ Send payment first</p>
+                    <p class="text-sm">Please send <strong id="payment-amount">₱0</strong> via <strong id="payment-method-label">GCash</strong> to:</p>
+                    <p class="mt-2 font-mono text-base text-coffee-900 bg-coffee-50 px-3 py-2 brut-border">
+                        <span id="payment-account-label">GCash:</span> <strong id="payment-account">0912 345 6789</strong>
+                    </p>
+                    <p class="mt-2 text-xs text-coffee-600">Copy the <strong>reference number</strong> from your receipt and enter it below.</p>
+                </div>
+
+                <div id="reference-field">
+                    <label for="order-reference" class="block font-mono text-[10px] uppercase tracking-widest font-bold text-coffee-700 mb-1">Payment Reference # *</label>
+                    <input type="text" id="order-reference" inputmode="numeric" class="w-full bg-coffee-50 border-0 border-b-2 border-coffee-900 px-0 py-2 focus:border-accent transition-colors font-mono text-base" placeholder="e.g. 9123 4567 8901">
+                    <p class="error-msg hidden mt-1 text-xs text-red-600 font-mono" data-for="order-reference">Please enter a valid reference number (digits only).</p>
+                </div>
+
+                <div>
+                    <label for="order-notes" class="block font-mono text-[10px] uppercase tracking-widest font-bold text-coffee-700 mb-1">Notes (optional)</label>
+                    <input type="text" id="order-notes" class="w-full bg-coffee-50 border-0 border-b-2 border-coffee-900 px-0 py-2 focus:border-accent transition-colors font-display text-base" placeholder="Less sugar, etc.">
+                </div>
+
+                <div class="bg-coffee-100 brut-border p-4">
+                    <ul id="checkout-summary" class="text-sm space-y-2 text-coffee-800 mb-3"></ul>
+                    <div class="flex justify-between font-display text-xl text-coffee-900 pt-3 border-t-2 border-coffee-900">
+                        <span>Total</span>
+                        <span id="checkout-total">₱0</span>
+                    </div>
+                </div>
+
+                <button type="submit" id="place-order-btn" class="w-full bg-accent hover:bg-coffee-900 text-coffee-900 hover:text-coffee-50 font-mono text-xs uppercase tracking-widest font-bold py-4 px-8 brut-border brut-shadow-sm brut-shadow-hover">
+                    Place Order →
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirmation-modal" class="modal-backdrop hidden-modal fixed inset-0 z-[98] bg-coffee-900/60 flex items-center justify-center p-4">
+        <div class="bg-coffee-50 brut-border w-full max-w-md max-h-[90vh] overflow-y-auto" style="box-shadow: 8px 8px 0 #1a110b;">
+            <div class="bg-coffee-900 text-coffee-50 p-7 border-b-2 border-coffee-50 text-center relative">
+                <div class="w-14 h-14 bg-accent brut-border border-coffee-50 flex items-center justify-center mx-auto mb-4 rotate-[-3deg]">
+                    <svg class="w-7 h-7 text-coffee-900" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <h2 class="font-display text-3xl mb-1">Order Received!</h2>
+                <p class="font-mono text-[10px] uppercase tracking-widest text-accent">We'll verify your payment shortly</p>
+            </div>
+            <div class="p-6 md:p-7">
+                <div class="inline-flex items-center gap-2 bg-accent border-2 border-coffee-900 text-coffee-900 font-mono text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 mb-5">
+                    <span class="w-1.5 h-1.5 bg-coffee-900 rounded-full animate-pulse"></span>
+                    Pending Verification
+                </div>
+                <p class="font-mono text-[10px] uppercase tracking-widest font-bold text-coffee-500 mb-1">Order Number</p>
+                <p id="confirm-order-number" class="font-mono text-2xl font-bold text-coffee-900 mb-6">LK-2026-0000</p>
+
+                <div class="bg-coffee-100 brut-border p-5 mb-5">
+                    <ul id="confirm-items" class="text-sm space-y-2 text-coffee-800 mb-4"></ul>
+                    <div class="flex justify-between text-sm text-coffee-700 pt-3 border-t-2 border-coffee-900">
+                        <span class="font-mono text-[10px] uppercase tracking-widest font-bold">Pickup:</span>
+                        <span id="confirm-time" class="font-bold text-coffee-900"></span>
+                    </div>
+                    <div class="flex justify-between text-sm text-coffee-700 mt-1">
+                        <span class="font-mono text-[10px] uppercase tracking-widest font-bold">Payment:</span>
+                        <span id="confirm-payment" class="font-bold text-coffee-900"></span>
+                    </div>
+                    <div class="flex justify-between text-sm text-coffee-700 mt-1" id="confirm-reference-row">
+                        <span class="font-mono text-[10px] uppercase tracking-widest font-bold">Ref #:</span>
+                        <span id="confirm-reference" class="font-bold text-coffee-900 font-mono"></span>
+                    </div>
+                    <div class="flex justify-between font-display text-xl text-coffee-900 mt-4 pt-3 border-t-2 border-coffee-900">
+                        <span>Total</span>
+                        <span id="confirm-total">₱0</span>
+                    </div>
+                </div>
+
+                <div class="bg-coffee-50 border-l-4 border-accent pl-3 py-2 mb-5 text-xs text-coffee-800 space-y-1.5">
+                    <p>We'll verify your payment and <strong>send SMS & Email</strong> once confirmed.</p>
+                    <p><strong>Pickup window:</strong> Held for 15 min after your time.</p>
+                    <p>If payment can't be matched, order won't be prepared. <strong>You won't be charged.</strong></p>
+                </div>
+
+                <button id="confirmation-close" type="button" class="w-full bg-coffee-900 hover:bg-accent text-coffee-50 hover:text-coffee-900 font-mono text-xs uppercase tracking-widest font-bold py-4 brut-border brut-shadow-sm brut-shadow-hover">
+                    Done
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ORDER STATUS MODAL -->
+    <div id="status-modal" class="modal-backdrop hidden-modal fixed inset-0 z-[97] bg-coffee-900/60 flex items-center justify-center p-4">
+        <div class="bg-coffee-50 brut-border w-full max-w-md max-h-[90vh] overflow-y-auto" style="box-shadow: 8px 8px 0 #1a110b;">
+            <div class="bg-coffee-900 text-coffee-50 p-5 flex items-center justify-between border-b-2 border-coffee-50">
+                <h2 class="font-display text-2xl">Order Status.</h2>
+                <button id="status-close" type="button" aria-label="Close" class="p-2 brut-border border-coffee-50 hover:bg-accent hover:text-coffee-900 hover:border-accent transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="p-6 md:p-7">
+                <div class="flex gap-2 mb-6">
+                    <input type="text" id="status-input" placeholder="LK-2026-0042" class="flex-1 bg-coffee-50 border-2 border-coffee-900 px-3 py-3 font-mono focus:border-accent transition-colors">
+                    <button id="status-check" type="button" class="bg-coffee-900 hover:bg-accent text-coffee-50 hover:text-coffee-900 font-mono text-xs uppercase tracking-widest font-bold px-5 py-3 brut-border">Check</button>
+                </div>
+                <div id="status-result" aria-live="polite"></div>
+
+                <div class="mt-6 pt-5 border-t-2 border-coffee-900">
+                    <p class="font-mono text-[10px] uppercase tracking-widest font-bold text-coffee-500 mb-3">Demo Control · Café Side</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button id="demo-confirm-btn" type="button" class="bg-coffee-50 hover:bg-green-100 border-2 border-coffee-900 text-coffee-900 font-mono text-[10px] uppercase tracking-widest font-bold py-3 transition-colors disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+                            ✓ Confirm
+                        </button>
+                        <button id="demo-reject-btn" type="button" class="bg-coffee-50 hover:bg-red-100 border-2 border-coffee-900 text-coffee-900 font-mono text-[10px] uppercase tracking-widest font-bold py-3 transition-colors disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+                            ✕ Reject
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to external JS -->
+    <script src="script.js"></script>
+</body>
+</html>
