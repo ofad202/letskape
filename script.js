@@ -9,7 +9,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/moeepbez';
 const MENU = [
     { id: 'k1', category: 'coffee', name: 'Kapeng Barako', price: 120, desc: 'Strong, bold, and distinctively Batangas.', img: 'https://i.imgur.com/vjhaus4.jpeg' },
     { id: 'k2', category: 'coffee', name: 'Ube Latte', price: 180, desc: 'Espresso, steamed milk, and sweet local ube halaya.', img: 'https://i.imgur.com/xgskEXv.jpeg' },
-    { id: 'k3', category: 'coffee', name: 'Sagada Pour Over', price: 150, desc: 'Single-origin Arabica, smooth with bittersweet hints.', img: 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=200&h=200' },
+    { id: 'k3', category: 'coffee', name: 'Oreo Matcha', price: 150, desc: 'Creamy matcha with a sweet Oreo crunch.', img: 'https://i.imgur.com/8Qz4O4r.jpeg' },
     { id: 'k4', category: 'coffee', name: 'Iced Spanish Latte', price: 170, desc: 'Sweetened with condensed milk, a local crowd favorite.', img: 'https://i.imgur.com/Sk3PEGF.jpeg' },
     { id: 'p1', category: 'pastry', name: 'Bibingka', price: 130, desc: 'Classic rice cake topped with salted egg and cheese.', img: 'https://images.unsplash.com/photo-1659504706718-39e049784635?auto=format&fit=crop&q=80&w=200&h=200' },
     { id: 'p2', category: 'pastry', name: 'Calamansi Muffin', price: 95, desc: 'Tangy, sweet, and baked fresh every morning.', img: 'https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&q=80&w=200&h=200' },
