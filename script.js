@@ -7,7 +7,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/moeepbez';
 // MENU DATA
 // ============================================================
 const MENU = [
-    { id: 'k1', category: 'coffee', name: 'Kapeng Barako', price: 120, desc: 'Strong, bold, and distinctively Batangas.', img: 'https://i.imgur.com/vjhaus4.jpeg' },
+    { id: 'k1', category: 'coffee', name: 'Strawberry Matcha', price: 160, desc: 'Earthy matcha paired with sweet, fruity strawberry puree.', img: 'https://i.imgur.com/P2Au1Av.jpeg' },
     { id: 'k2', category: 'coffee', name: 'Ube Latte', price: 180, desc: 'Espresso, steamed milk, and sweet local ube halaya.', img: 'https://i.imgur.com/xgskEXv.jpeg' },
     { id: 'k3', category: 'coffee', name: 'Oreo Matcha', price: 150, desc: 'Creamy matcha with a sweet Oreo crunch.', img: 'https://i.imgur.com/FbBPJD0.jpeg' },
     { id: 'k4', category: 'coffee', name: 'Iced Spanish Latte', price: 170, desc: 'Sweetened with condensed milk, a local crowd favorite.', img: 'https://i.imgur.com/Sk3PEGF.jpeg' },
