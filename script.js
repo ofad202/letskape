@@ -13,8 +13,8 @@ const MENU = [
     { id: 'k4', category: 'coffee', name: 'Iced Spanish Latte', price: 170, desc: 'Sweetened with condensed milk, a local crowd favorite.', img: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&q=80&w=200&h=200' },
     { id: 'p1', category: 'pastry', name: 'Bibingka', price: 130, desc: 'Classic rice cake topped with salted egg and cheese.', img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=200&h=200' },
     { id: 'p2', category: 'pastry', name: 'Calamansi Muffin', price: 95, desc: 'Tangy, sweet, and baked fresh every morning.', img: 'https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&q=80&w=200&h=200' },
-    { id: 'p3', category: 'pastry', name: 'Ensaymada', price: 110, desc: 'Soft bread smothered in butter, sugar, and queso de bola.', img: 'https://images.unsplash.com/photo-onPKU1LvAhE?auto=format&fit=crop&q=80&w=200&h=200' },
-    { id: 'p4', category: 'pastry', name: 'Pandesal at Kesong Puti', price: 85, desc: 'Warm pandesal served with creamy local white cheese.', img: 'https://images.unsplash.com/photo-nymRFkQD8Og?auto=format&fit=crop&q=80&w=200&h=200' }
+    { id: 'p3', category: 'pastry', name: 'Ensaymada', price: 110, desc: 'Soft bread smothered in butter, sugar, and queso de bola.', img: 'https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&q=80&w=200&h=200' },
+    { id: 'p4', category: 'pastry', name: 'Pandesal at Kesong Puti', price: 85, desc: 'Warm pandesal served with creamy local white cheese.', img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=200&h=200' }
 ];
 
 // ============================================================
