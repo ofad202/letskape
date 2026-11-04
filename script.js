@@ -11,10 +11,10 @@ const MENU = [
     { id: 'k2', category: 'coffee', name: 'Ube Latte', price: 180, desc: 'Espresso, steamed milk, and sweet local ube halaya.', img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&q=80&w=200&h=200' },
     { id: 'k3', category: 'coffee', name: 'Sagada Pour Over', price: 150, desc: 'Single-origin Arabica, smooth with bittersweet hints.', img: 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=200&h=200' },
     { id: 'k4', category: 'coffee', name: 'Iced Spanish Latte', price: 170, desc: 'Sweetened with condensed milk, a local crowd favorite.', img: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&q=80&w=200&h=200' },
-    { id: 'p1', category: 'pastry', name: 'Bibingka', price: 130, desc: 'Classic rice cake topped with salted egg and cheese.', img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=200&h=200' },
+    { id: 'p1', category: 'pastry', name: 'Bibingka', price: 130, desc: 'Classic rice cake topped with salted egg and cheese.', img: 'https://images.unsplash.com/photo-1659504706718-39e049784635?auto=format&fit=crop&q=80&w=200&h=200' },
     { id: 'p2', category: 'pastry', name: 'Calamansi Muffin', price: 95, desc: 'Tangy, sweet, and baked fresh every morning.', img: 'https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&q=80&w=200&h=200' },
     { id: 'p3', category: 'pastry', name: 'Ensaymada', price: 110, desc: 'Soft bread smothered in butter, sugar, and queso de bola.', img: 'https://images.unsplash.com/photo-1688084436286-8f0ca14e9390?auto=format&fit=crop&q=80&w=200&h=200' },
-    { id: 'p4', category: 'pastry', name: 'Pandesal at Kesong Puti', price: 85, desc: 'Warm pandesal served with creamy local white cheese.', img: 'https://images.unsplash.com/photo-1716393374741-02f485f25d61?auto=format&fit=crop&q=80&w=200&h=200' }
+    { id: 'p4', category: 'pastry', name: 'Pandesal at Kesong Puti', price: 85, desc: 'Warm pandesal served with creamy local white cheese.', img: 'https://images.unsplash.com/photo-1790995504729-921c40267b38?auto=format&fit=crop&q=80&w=200&h=200' }
 ];
 
 // ============================================================
