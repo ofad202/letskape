@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Let's KAPE · Staff</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;0,900;1,400;1,900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = { theme: { extend: {
+            colors: { coffee: { 900: '#1a110b', 800: '#2c1e16', 700: '#3E2723', 600: '#5D4037', 500: '#6D4C41', 400: '#8d6e63', 300: '#bcaaa4', 200: '#d7ccc8', 100: '#f5f5f0', 50: '#faf9f6' }, accent: '#C88A5A' },
+            fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Merriweather', 'serif'], mono: ['"Space Mono"', 'monospace'] } } } }
+    </script>
+</head>
+<body class="font-sans bg-coffee-100 text-coffee-900 antialiased min-h-screen">
+
+<!-- LOCK -->
+<div id="gate" class="min-h-screen flex items-center justify-center p-4">
+    <form id="gate-form" class="bg-coffee-50 brut-border brut-shadow w-full max-w-sm p-7 space-y-4">
+        <h1 class="font-display text-3xl">Staff <span class="italic text-accent">Only.</span></h1>
+        <p id="gate-msg" class="text-sm text-coffee-700"></p>
+        <input id="gate-pin" type="password" autocomplete="off" minlength="4" required class="w-full border-2 border-coffee-900 bg-coffee-50 px-3 py-3 font-mono" placeholder="PIN">
+        <p id="gate-err" class="hidden text-xs font-mono text-red-700">Wrong PIN.</p>
+        <button class="w-full bg-coffee-900 hover:bg-accent text-coffee-50 hover:text-coffee-900 font-mono text-xs uppercase tracking-widest font-bold py-3 brut-border">Enter →</button>
+        <a href="index.html" class="block text-center font-mono text-[10px] uppercase tracking-widest underline">← Back to website</a>
+    </form>
+</div>
+
+<div id="app" class="hidden">
+    <header class="bg-coffee-900 text-coffee-50 border-b-2 border-accent sticky top-0 z-30" style="padding-top: var(--safe-top);">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3 justify-between">
+            <div class="font-display text-xl">Let's <span class="italic text-accent">KAPE</span> · Staff</div>
+            <div class="flex items-center gap-2">
+                <button id="accept-btn" class="font-mono text-[10px] uppercase tracking-widest font-bold px-3 py-2 border-2 border-coffee-50"></button>
+                <a href="index.html" class="font-mono text-[10px] uppercase tracking-widest font-bold px-3 py-2 border-2 border-coffee-50 hover:bg-accent hover:text-coffee-900">Website</a>
+                <button id="lock-btn" class="font-mono text-[10px] uppercase tracking-widest font-bold px-3 py-2 border-2 border-coffee-50 hover:bg-accent hover:text-coffee-900">Lock</button>
+            </div>
+        </div>
+        <nav class="max-w-5xl mx-auto px-4 flex gap-1" id="tabs">
+            <button data-tab="orders" class="tab font-mono text-xs uppercase tracking-widest font-bold px-4 py-2">Orders <span id="new-count" class="hidden bg-accent text-coffee-900 px-1.5 ml-1"></span></button>
+            <button data-tab="menu" class="tab font-mono text-xs uppercase tracking-widest font-bold px-4 py-2">Menu</button>
+            <button data-tab="settings" class="tab font-mono text-xs uppercase tracking-widest font-bold px-4 py-2">Settings</button>
+        </nav>
+    </header>
+
+    <main class="max-w-5xl mx-auto p-4 space-y-4">
+        <!-- ORDERS -->
+        <section id="tab-orders" class="space-y-4">
+            <div class="bg-coffee-50 brut-border p-3 flex flex-col sm:flex-row gap-2">
+                <input id="import-code" class="flex-1 border-2 border-coffee-900 px-3 py-2 font-mono text-xs" placeholder="Order came by email? Paste its dashboard link or code here">
+                <button id="import-btn" class="bg-coffee-900 text-coffee-50 font-mono text-[10px] uppercase tracking-widest font-bold px-4 py-2">Import</button>
+                <select id="order-filter" class="border-2 border-coffee-900 bg-coffee-50 px-2 py-2 font-mono text-xs">
+                    <option value="active">Active</option><option value="all">All orders</option>
+                </select>
+            </div>
+            <div id="orders-list" class="grid gap-4 md:grid-cols-2"></div>
+        </section>
+
+        <!-- MENU -->
+        <section id="tab-menu" class="hidden space-y-4">
+            <div id="menu-list" class="bg-coffee-50 brut-border divide-y-2 divide-coffee-900"></div>
+            <form id="add-item" class="bg-coffee-50 brut-border p-4 grid gap-3 sm:grid-cols-6">
+                <h2 class="sm:col-span-6 font-display text-xl">Add an item</h2>
+                <input name="name" required maxlength="40" placeholder="Name" class="sm:col-span-2 border-2 border-coffee-900 px-3 py-2">
+                <input name="price" required type="number" min="1" max="9999" placeholder="Price ₱" class="border-2 border-coffee-900 px-3 py-2">
+                <select name="category" class="sm:col-span-2 border-2 border-coffee-900 bg-coffee-50 px-3 py-2"><option value="coffee">Kape</option><option value="pastry">Kakanin at Tinapay</option></select>
+                <button class="bg-accent hover:bg-coffee-900 hover:text-coffee-50 font-mono text-[10px] uppercase tracking-widest font-bold py-2 brut-border">Add</button>
+                <input name="desc" maxlength="100" placeholder="Short description" class="sm:col-span-3 border-2 border-coffee-900 px-3 py-2">
+                <input name="img" type="url" placeholder="Photo URL (optional, https://…)" class="sm:col-span-3 border-2 border-coffee-900 px-3 py-2">
+            </form>
+        </section>
+
+        <!-- SETTINGS -->
+        <section id="tab-settings" class="hidden grid gap-4 md:grid-cols-2">
+            <form id="pay-form" class="bg-coffee-50 brut-border p-4 space-y-3">
+                <h2 class="font-display text-xl">Payment numbers</h2>
+                <label class="block font-mono text-[10px] uppercase tracking-widest font-bold">GCash<input id="set-gcash" class="mt-1 w-full border-2 border-coffee-900 px-3 py-2 font-mono text-base"></label>
+                <label class="block font-mono text-[10px] uppercase tracking-widest font-bold">Maya<input id="set-maya" class="mt-1 w-full border-2 border-coffee-900 px-3 py-2 font-mono text-base"></label>
+                <button class="bg-coffee-900 text-coffee-50 font-mono text-[10px] uppercase tracking-widest font-bold px-4 py-2">Save</button>
+            </form>
+            <form id="hours-form" class="bg-coffee-50 brut-border p-4 space-y-3">
+                <h2 class="font-display text-xl">Opening hours</h2>
+                <p class="text-xs text-coffee-600">Pickup times on the website only appear inside these hours.</p>
+                <div class="grid grid-cols-[auto_1fr_1fr] gap-2 items-center font-mono text-xs">
+                    <span>Mon–Fri</span><input type="time" id="wd-open" required class="border-2 border-coffee-900 px-2 py-2"><input type="time" id="wd-close" required class="border-2 border-coffee-900 px-2 py-2">
+                    <span>Sat–Sun</span><input type="time" id="we-open" required class="border-2 border-coffee-900 px-2 py-2"><input type="time" id="we-close" required class="border-2 border-coffee-900 px-2 py-2">
+                </div>
+                <button class="bg-coffee-900 text-coffee-50 font-mono text-[10px] uppercase tracking-widest font-bold px-4 py-2">Save</button>
+            </form>
+            <form id="pin-form" class="bg-coffee-50 brut-border p-4 space-y-3">
+                <h2 class="font-display text-xl">Change PIN</h2>
+                <input id="new-pin" type="password" minlength="4" required placeholder="New PIN (4+ characters)" class="w-full border-2 border-coffee-900 px-3 py-2 font-mono">
+                <button class="bg-coffee-900 text-coffee-50 font-mono text-[10px] uppercase tracking-widest font-bold px-4 py-2">Update PIN</button>
+            </form>
+            <div class="bg-coffee-50 brut-border p-4 space-y-3">
+                <h2 class="font-display text-xl">Housekeeping</h2>
+                <button id="clear-done" class="block border-2 border-coffee-900 font-mono text-[10px] uppercase tracking-widest font-bold px-4 py-2 hover:bg-coffee-900 hover:text-coffee-50">Clear completed &amp; rejected orders</button>
+                <button id="reset-menu" class="block border-2 border-coffee-900 font-mono text-[10px] uppercase tracking-widest font-bold px-4 py-2 hover:bg-coffee-900 hover:text-coffee-50">Discard draft (back to published data)</button>
+            </div>
+            <div class="md:col-span-2 bg-coffee-50 brut-border brut-shadow-sm p-4 space-y-3">
+                <h2 class="font-display text-xl">Publish to the website</h2>
+                <p class="text-sm text-coffee-700">Menu, price, sold-out, hours, payment-number and pause changes are saved as a <strong>draft on this device only</strong>. Customers see them after you press the button below and replace <span class="font-mono">data.js</span> on GitHub or the Vercel dashboard.</p>
+                <p id="draft-state" class="font-mono text-[10px] uppercase tracking-widest font-bold"></p>
+                <button id="publish-btn" class="bg-accent hover:bg-coffee-900 hover:text-coffee-50 border-2 border-coffee-900 font-mono text-[10px] uppercase tracking-widest font-bold px-4 py-2">Download data.js</button>
+            </div>
+        </section>
+    </main>
+</div>
+
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-coffee-900 text-coffee-50 font-mono text-xs uppercase tracking-wide px-5 py-3 border-2 border-accent opacity-0 pointer-events-none transition-opacity"></div>
+
+<script src="data.js"></script>
+<script src="store.js"></script>
+<script>
+const $ = id => document.getElementById(id), esc = LK.esc;
+let tab = 'orders';
+const toast = t => { const el = $('toast'); el.textContent = t; el.style.opacity = 1; clearTimeout(toast.t); toast.t = setTimeout(() => el.style.opacity = 0, 2800); };
+
+// ---------- lock ----------
+const unlocked = () => sessionStorage.getItem('lk_admin') === '1';
+function showApp() {
+    $('gate').classList.add('hidden'); $('app').classList.remove('hidden');
+    const m = location.hash.match(/^#import=(.+)$/);
+    if (m) { importOrder(m[1]); history.replaceState(null, '', location.pathname); }
+    renderAll();
+}
+$('gate-msg').textContent = LK.hasPin() ? 'Enter the staff PIN to manage orders and the menu.' : 'First time here: choose a staff PIN (4+ characters). Keep it to yourself — it is stored on this device.';
+$('gate-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const p = $('gate-pin').value;
+    if (!LK.hasPin()) LK.setPin(p);
+    else if (!LK.checkPin(p)) { $('gate-err').classList.remove('hidden'); return; }
+    sessionStorage.setItem('lk_admin', '1'); showApp();
+});
+$('lock-btn').addEventListener('click', () => { sessionStorage.removeItem('lk_admin'); location.reload(); });
+
+// ---------- orders ----------
+const NEXT = {
+    pending_verification: [['confirmed', '✓ Confirm payment'], ['rejected', '✕ Reject']],
+    pending_pickup: [['confirmed', '✓ Accept order'], ['rejected', '✕ Reject']],
+    confirmed: [['preparing', 'Start preparing']], preparing: [['ready', 'Mark ready']], ready: [['completed', 'Picked up ✓']]
+};
+const MSG = {
+    confirmed: (o) => `Hi ${o.name}! Your Let's KAPE order ${o.orderNumber} is confirmed. Pickup at ${fmtTime(o.time)}. Salamat!`,
+    ready: (o) => `Hi ${o.name}! Your Let's KAPE order ${o.orderNumber} is ready for pickup. See you!`,
+    rejected: (o) => `Hi ${o.name}, we couldn't match the payment for order ${o.orderNumber}. Please send us your receipt so we can prepare it.`
+};
+const fmtTime = hm => { const [h, m] = hm.split(':'); const d = new Date(); d.setHours(h, m); return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }); };
+const STEPS = [['confirmed', 'Confirmed'], ['preparing', 'Preparing'], ['ready', 'Ready'], ['completed', 'Picked up']];
+const isActive = o => !['completed', 'rejected'].includes(o.status);
+
+function renderOrders() {
+    const all = LK.getOrders(), pending = all.filter(o => o.status.startsWith('pending')).length;
+    $('new-count').textContent = pending; $('new-count').classList.toggle('hidden', !pending);
+    document.title = (pending ? `(${pending}) ` : '') + "Let's KAPE · Staff";
+    let list = $('order-filter').value === 'active' ? all.filter(isActive) : all.slice();
+    list.sort((a, b) => isActive(a) === isActive(b) ? (isActive(a) ? a.time.localeCompare(b.time) : b.createdAt.localeCompare(a.createdAt)) : isActive(b) - isActive(a));
+    $('orders-list').innerHTML = list.length ? list.map(o => {
+        const s = LK.STATUS[o.status] || LK.STATUS.pending_verification;
+        const dup = o.reference && all.find(x => x.orderNumber !== o.orderNumber && x.reference && x.reference.replace(/\s/g, '') === o.reference.replace(/\s/g, ''));
+        const phone = o.phone.replace(/[^\d+]/g, ''), msg = MSG[o.status];
+        return `<article class="bg-coffee-50 brut-border p-4 space-y-3 ${o.status.startsWith('pending') ? 'brut-shadow-sm' : ''}">
+            <div class="flex items-start justify-between gap-2">
+                <div><p class="font-mono font-bold">${esc(o.orderNumber)}</p><p class="font-display text-lg leading-tight">${esc(o.name)}</p></div>
+                <span class="${s.color} border-2 text-[10px] font-mono font-bold px-2 py-1 uppercase tracking-wider text-right">${s.label}</span>
+            </div>
+            <p class="font-mono text-xs">Pickup <strong>${fmtTime(o.time)}</strong> · ${esc(o.payment)}${o.reference ? ' · Ref ' + esc(o.reference) : ''}</p>
+            ${dup ? `<p class="bg-red-100 border-2 border-red-800 text-red-800 text-xs font-mono p-2">⚠ Same reference number used on ${esc(dup.orderNumber)}</p>` : ''}
+            <ul class="text-sm border-y-2 border-coffee-900 py-2 space-y-1">${o.items.map(i => `<li class="flex justify-between"><span>${i.qty}× ${esc(i.name)}</span><span>${LK.peso(i.subtotal)}</span></li>`).join('')}
+                <li class="flex justify-between font-bold pt-1"><span>Total</span><span>${LK.peso(o.total)}</span></li></ul>
+            ${o.notes ? `<p class="text-sm italic">“${esc(o.notes)}”</p>` : ''}
+            ${STEPS.some(([st]) => st === o.status) ? `<div class="grid grid-cols-4 gap-1">${STEPS.map(([st, l], i) =>
+                `<button data-act="status" data-o="${esc(o.orderNumber)}" data-st="${st}" class="border-2 border-coffee-900 py-2 font-mono text-[9px] uppercase tracking-wider font-bold ${i <= STEPS.findIndex(x => x[0] === o.status) ? 'bg-accent' : 'hover:bg-coffee-200'}">${l}</button>`).join('')}</div>` : ''}
+            <div class="flex flex-wrap gap-2">
+                ${(NEXT[o.status] || []).map(([st, label]) => `<button data-act="status" data-o="${esc(o.orderNumber)}" data-st="${st}" class="${st === 'rejected' ? 'bg-coffee-50 hover:bg-red-100' : 'bg-coffee-900 text-coffee-50 hover:bg-accent hover:text-coffee-900'} border-2 border-coffee-900 font-mono text-[10px] uppercase tracking-widest font-bold px-3 py-2">${label}</button>`).join('')}
+                <a href="tel:${esc(phone)}" class="border-2 border-coffee-900 font-mono text-[10px] uppercase tracking-widest font-bold px-3 py-2 hover:bg-accent">Call</a>
+                <a href="sms:${esc(phone)}?&body=${encodeURIComponent(msg ? msg(o) : `Hi ${o.name}, this is Let's KAPE about order ${o.orderNumber}.`)}" class="border-2 border-coffee-900 font-mono text-[10px] uppercase tracking-widest font-bold px-3 py-2 hover:bg-accent">Text</a>
+                ${o.email ? `<a href="mailto:${esc(o.email)}?subject=${encodeURIComponent("Your Let's KAPE order " + o.orderNumber)}&body=${encodeURIComponent(msg ? msg(o) : '')}" class="border-2 border-coffee-900 font-mono text-[10px] uppercase tracking-widest font-bold px-3 py-2 hover:bg-accent">Email</a>` : ''}
+            </div></article>`;
+    }).join('') : '<p class="font-mono text-xs uppercase tracking-widest text-coffee-500 p-6">No orders here yet.</p>';
+}
+$('orders-list').addEventListener('click', e => {
+    const b = e.target.closest('[data-act="status"]'); if (!b) return;
+    LK.updateOrder(b.dataset.o, { status: b.dataset.st }); renderOrders();
+});
+$('order-filter').addEventListener('change', renderOrders);
+function importOrder(src) {
+    const code = (src.match(/#import=([\w-]+)/) || [, src.trim()])[1];
+    const o = LK.decodeOrder(code);
+    if (!o) return toast('That code is not a valid order');
+    if (LK.getOrders().some(x => x.orderNumber === o.orderNumber)) return toast('Order ' + o.orderNumber + ' is already here');
+    LK.saveOrders([...LK.getOrders(), o]); toast('Imported ' + o.orderNumber); renderOrders();
+}
+$('import-btn').addEventListener('click', () => { if ($('import-code').value.trim()) { importOrder($('import-code').value); $('import-code').value = ''; } });
+
+// ---------- menu ----------
+function renderMenu() {
+    $('menu-list').innerHTML = LK.getMenu().map(i => `<div class="p-3 flex flex-wrap items-center gap-3 ${i.soldOut ? 'bg-coffee-100' : ''}">
+        <div class="flex-1 min-w-[10rem]"><p class="font-display ${i.soldOut ? 'line-through text-coffee-500' : ''}">${esc(i.name)}</p><p class="font-mono text-[10px] uppercase tracking-widest text-coffee-500">${i.category === 'coffee' ? 'Kape' : 'Kakanin at Tinapay'}</p></div>
+        <label class="font-mono text-xs">₱<input data-price="${esc(i.id)}" type="number" min="1" max="9999" value="${+i.price}" class="w-20 border-2 border-coffee-900 px-2 py-1"></label>
+        <button data-sold="${esc(i.id)}" class="border-2 border-coffee-900 font-mono text-[10px] uppercase tracking-widest font-bold px-3 py-2 ${i.soldOut ? 'bg-accent' : 'hover:bg-coffee-900 hover:text-coffee-50'}">${i.soldOut ? 'Mark available' : 'Mark sold out'}</button>
+        <button data-del="${esc(i.id)}" aria-label="Remove ${esc(i.name)}" class="border-2 border-coffee-900 px-3 py-2 hover:bg-red-100">✕</button></div>`).join('');
+}
+const editMenu = fn => { const m = LK.getMenu(); fn(m); LK.saveMenu(m); renderMenu(); renderSettings(); };
+$('menu-list').addEventListener('click', e => {
+    const s = e.target.closest('[data-sold]'), d = e.target.closest('[data-del]');
+    if (s) editMenu(m => { const i = m.find(x => x.id === s.dataset.sold); i.soldOut = !i.soldOut; });
+    if (d && confirm('Remove this item from the menu?')) editMenu(m => m.splice(m.findIndex(x => x.id === d.dataset.del), 1));
+});
+$('menu-list').addEventListener('change', e => {
+    const id = e.target.dataset.price, p = Math.round(+e.target.value);
+    if (id && p > 0) { editMenu(m => { m.find(x => x.id === id).price = p; }); toast('Price updated'); }
+});
+$('add-item').addEventListener('submit', e => {
+    e.preventDefault(); const f = new FormData(e.target), img = String(f.get('img') || '').trim();
+    editMenu(m => m.push({ id: 'n' + Date.now().toString(36), category: f.get('category'), name: String(f.get('name')).trim(), price: Math.round(+f.get('price')),
+        desc: String(f.get('desc') || '').trim() || 'Freshly made at Let\'s KAPE.', img: /^https:\/\//.test(img) ? img : 'https://placehold.co/400x400/e7ded6/5D4037?text=Let%27s+KAPE' }));
+    e.target.reset(); toast('Item added');
+});
+
+// ---------- settings ----------
+function renderSettings() {
+    const s = LK.getSettings();
+    $('set-gcash').value = s.gcash; $('set-maya').value = s.maya;
+    [$('wd-open').value, $('wd-close').value] = s.weekday; [$('we-open').value, $('we-close').value] = s.weekend;
+    $('draft-state').textContent = LK.hasDraft() ? '● Unpublished draft on this device' : '○ Nothing waiting to publish';
+    const b = $('accept-btn'); b.textContent = s.accepting ? '● Accepting orders' : '○ Orders paused';
+    b.className = 'font-mono text-[10px] uppercase tracking-widest font-bold px-3 py-2 border-2 ' + (s.accepting ? 'border-green-400 text-green-300' : 'border-red-400 bg-red-900 text-red-100');
+}
+const saveSet = patch => { LK.saveSettings({ ...LK.getSettings(), ...patch }); renderSettings(); toast('Saved'); };
+$('accept-btn').addEventListener('click', () => saveSet({ accepting: !LK.getSettings().accepting }));
+$('pay-form').addEventListener('submit', e => { e.preventDefault(); saveSet({ gcash: $('set-gcash').value.trim(), maya: $('set-maya').value.trim() }); });
+$('hours-form').addEventListener('submit', e => { e.preventDefault(); saveSet({ weekday: [$('wd-open').value, $('wd-close').value], weekend: [$('we-open').value, $('we-close').value] }); });
+$('pin-form').addEventListener('submit', e => { e.preventDefault(); LK.setPin($('new-pin').value); e.target.reset(); toast('PIN updated'); });
+$('clear-done').addEventListener('click', () => { if (confirm('Delete all completed and rejected orders from this device?')) { LK.saveOrders(LK.getOrders().filter(isActive)); renderOrders(); } });
+$('reset-menu').addEventListener('click', () => { if (confirm('Throw away the draft menu and settings on this device and go back to the published data?')) { LK.discardDraft(); renderAll(); toast('Draft discarded'); } });
+$('publish-btn').addEventListener('click', () => {
+    const body = "/* Let's KAPE: published site data. Generated " + new Date().toLocaleString('en-PH') + " */\nwindow.LK_DATA = " +
+        JSON.stringify({ menu: LK.getMenu(), settings: LK.getSettings() }, null, 2) + ";\n";
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([body], { type: 'text/javascript' })); a.download = 'data.js';
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    toast('data.js downloaded. Replace it on GitHub / Vercel');
+});
+
+// ---------- tabs + live updates ----------
+function showTab(t) {
+    tab = t;
+    ['orders', 'menu', 'settings'].forEach(n => $('tab-' + n).classList.toggle('hidden', n !== t));
+    document.querySelectorAll('.tab').forEach(b => b.classList.toggle('bg-coffee-100', b.dataset.tab === t));
+    document.querySelectorAll('.tab').forEach(b => b.classList.toggle('text-coffee-900', b.dataset.tab === t));
+}
+$('tabs').addEventListener('click', e => { const b = e.target.closest('.tab'); if (b) showTab(b.dataset.tab); });
+const renderAll = () => { renderOrders(); renderMenu(); renderSettings(); showTab(tab); };
+LK.onChange(key => { if (unlocked()) key === LK.K.orders ? renderOrders() : renderAll(); });
+setInterval(() => { if (unlocked() && tab === 'orders' && !document.hidden) renderOrders(); }, 15000);
+if (unlocked() && LK.hasPin()) showApp();   // must run last, after everything above is defined
+</script>
+</body>
+</html>
